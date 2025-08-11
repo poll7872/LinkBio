@@ -1,0 +1,23 @@
+{
+  "name": "linkbio",
+  "version": "1.0.0",
+  "description": "Projecto con el objetivo de usar como un repositorio de enlaces. Similiar a servicios como LinkTree",
+  "homepage": "https://github.com/poll7872/LinkBio#readme",
+  "bugs": {
+    "url": "https://github.com/poll7872/LinkBio/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poll7872/LinkBio.git"
+  },
+  "license": "ISC",
+  "author": "Edward Ojeda E.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
