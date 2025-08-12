@@ -12,10 +12,9 @@
   },
   "license": "ISC",
   "author": "Edward Ojeda E.",
-  "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch src/index.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
@@ -25,6 +24,7 @@
   "devDependencies": {
     "@types/express": "^5.0.3",
     "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.2"
   }
 }
