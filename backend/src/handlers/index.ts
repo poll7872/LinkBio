@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import slug from "slug";
 import User from "../models/User";
 import { hashPassword, checkPassword } from "../utils/auth";
+import { generateJwt } from "../utils/jwt";
 
 export const createAccount = async (req: Request, res: Response) => {
 
@@ -47,5 +48,8 @@ export const login = async (req: Request, res: Response) => {
     return res.status(401).json({ error: error.message });
   }
 
-  res.send('autenticado...')
+  const token = generateJwt({ id: user._id })
+
+  res.status(200).json({ token })
+
 }
