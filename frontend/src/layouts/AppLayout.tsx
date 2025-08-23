@@ -12,11 +12,17 @@ export const AppLayout = () => {
     refetchOnWindowFocus: false,
   })
 
-  if (isLoading) return 'Cargando...';
-  if (isError) {
-    return <Navigate to={'/auth/login'} />
-  }
+  return (
+    <div className="relative min-h-screen">
+      {/* Background decoration */}
+      <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-violet-100 via-pink-100 to-pink-100 opacity-30"></div>
 
-  if (data) return <LinkBio data={data} />
+      {/* Content */}
+      <div className="relative z-10">
+        {isLoading && <div className="flex justify-center items-center min-h-screen text-2xl font-bold text-violet-600">Cargando...</div>}
+        {isError && <Navigate to={'/auth/login'} />}
+        {data && <LinkBio data={data} />}
+      </div>
+    </div>
+  )
 }
-

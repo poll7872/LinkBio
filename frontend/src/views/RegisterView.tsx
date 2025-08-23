@@ -5,6 +5,7 @@ import type { RegisterForm } from '../types';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
 import api from '../config/axios';
+import { GradientButton } from "../components/GradientButton";
 
 export const RegisterView = () => {
 
@@ -164,12 +165,11 @@ export const RegisterView = () => {
           </div>
         </div>
 
-        <button
+        <GradientButton
           type="submit"
-          className="cursor-pointer w-full justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-gradient-to-r from-violet-500 to-pink-500 hover:from-violet-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 transition-all duration-300 ease-in-out"
         >
           Crear Cuenta
-        </button>
+        </GradientButton>
       </form>
 
       <nav className='mt-6 text-center'>

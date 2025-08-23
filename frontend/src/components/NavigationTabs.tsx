@@ -27,7 +27,7 @@ export const NavigationTabs = () => {
         <select
           id="tabs"
           name="tabs"
-          className="block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+          className="block w-full rounded-md border-gray-300 focus:border-violet-500 focus:ring-violet-500"
           onChange={handleChange}
         >
           {tabs.map((tab) => (
@@ -48,15 +48,15 @@ export const NavigationTabs = () => {
                 to={tab.href}
                 className={classNames(
                   location.pathname === tab.href
-                    ? 'border-blue-500 text-blue-500'
-                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                    ? 'border-violet-600 text-violet-600'
+                    : 'border-transparent text-gray-500 hover:border-violet-300 hover:text-violet-500',
                   'group inline-flex items-center border-b-2 py-4 px-1 text-xl'
                 )}
               >
                 <tab.icon
                   className={classNames(
-                    location.pathname === tab.href ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500',
-                    '-ml-0.5 mr-2 h-5 w-5'
+                    location.pathname === tab.href ? 'text-violet-600' : 'text-gray-400 group-hover:text-violet-500',
+                  '-ml-0.5 mr-2 h-5 w-5'
                   )}
                   aria-hidden="true"
                 />
