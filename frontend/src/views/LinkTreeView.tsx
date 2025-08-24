@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { social } from '../data/social'
 import { LinkTreeInput } from '../components/LinkTreeInput'
 import { isValidUrl } from '../utils'
@@ -6,7 +6,7 @@ import { toast } from 'sonner'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { updateProfile } from '../api/LinkBioAPI'
 import { GradientButton } from '../components/GradientButton'
-import type { User } from '../types'
+import type { User, LinkTree } from '../types'
 
 export const LinkTreeView = () => {
   const [linkTreeLinks, setLinkTreeLinks] = useState(social)
@@ -24,9 +24,29 @@ export const LinkTreeView = () => {
     }
   })
 
+  useEffect(() => {
+    const updatedData = linkTreeLinks.map(item => {
+      const userLink = JSON.parse(user.links).find((link: LinkTree) => link.name === item.name)
+      if (userLink) {
+        return { ...item, url: userLink.url, enabled: userLink.enabled }
+      }
+      return item
+    })
+
+    setLinkTreeLinks(updatedData)
+  }, [])
+
+
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const updatedLink = linkTreeLinks.map(link => link.name === e.target.name ? { ...link, url: e.target.value } : link)
     setLinkTreeLinks(updatedLink)
+
+    queryClient.setQueryData(['user'], (prevData: User) => {
+      return {
+        ...prevData,
+        links: JSON.stringify(updatedLink)
+      }
+    })
   }
 
   const handleEnableLink = (socialNetwork: string) => {
