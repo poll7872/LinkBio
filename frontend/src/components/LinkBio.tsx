@@ -1,9 +1,12 @@
 import { Toaster } from "sonner";
 import { NavigationTabs } from "../components/NavigationTabs";
 import { Link, Outlet } from "react-router-dom";
+import { closestCenter, DndContext, type DragEndEvent } from "@dnd-kit/core"
+import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import type { SocialNetwork, User } from "../types";
 import { useEffect, useState } from "react";
 import { Links } from "./Links";
+import { useQueryClient } from "@tanstack/react-query";
 
 type LinkBioProps = {
   data: User
@@ -15,6 +18,29 @@ export const LinkBio = ({ data }: LinkBioProps) => {
   useEffect(() => {
     setEnabledLinks(JSON.parse(data.links).filter((item: SocialNetwork) => item.enabled))
   }, [data])
+
+  const queryClient = useQueryClient()
+
+  const handleDragEnd = (e: DragEndEvent) => {
+    const { active, over } = e
+    if (over && active.id !== over.id) {
+      const prevIndex = enabledLinks.findIndex(link => link.name === active.id)
+      const newIndex = enabledLinks.findIndex(link => link.name === over.id)
+      const order = arrayMove(enabledLinks, prevIndex, newIndex)
+      setEnabledLinks(order)
+
+      const disabledLinks: SocialNetwork[] = JSON.parse(data.links).filter((item: SocialNetwork) => !item.enabled)
+
+      const links = order.concat(disabledLinks)
+
+      queryClient.setQueryData(['user'], (prevData: User) => {
+        return {
+          ...prevData,
+          links: JSON.stringify(links)
+        }
+      })
+    }
+  }
 
   return (
     <>
@@ -55,11 +81,25 @@ export const LinkBio = ({ data }: LinkBioProps) => {
               {data.url_image && <img src={data.url_image} alt="imagen de perfil" className="mx-auto max-w-[250px] rounded-full shadow-lg border-4 border-white" />}
               <p className="text-center text-lg font-black text-white">{data.description}</p>
 
-              <div className="mt-20 flex flex-col gap-5">
-                {enabledLinks.map(link => (
-                  <Links key={link.name} link={link} />
-                ))}
-              </div>
+              <DndContext
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+              >
+
+                <div className="mt-20 flex flex-col gap-5">
+                  <SortableContext
+                    items={enabledLinks.map(link => link.name)}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    <ul className="space-y-5 list-none p-0 m-0">
+                      {enabledLinks.map(link => (
+                        <Links key={link.name} link={link} />
+                      ))}
+                    </ul>
+                  </SortableContext>
+                </div>
+
+              </DndContext>
             </div>
           </div>
         </main>
