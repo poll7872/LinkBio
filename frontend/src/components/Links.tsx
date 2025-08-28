@@ -1,3 +1,5 @@
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import type { SocialNetwork } from "../types";
 
 type LinksProps = {
@@ -5,12 +7,22 @@ type LinksProps = {
 };
 
 export const Links = ({ link }: LinksProps) => {
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+    id: link.name
+  })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  }
+
   return (
-    <a
-      href={link.url}
-      target="_blank"
-      rel="noopener noreferrer"
+    <li
+      style={style}
       className="relative group block w-full p-4 bg-white rounded-lg border border-slate-200 hover:border-transparent hover:shadow-lg transition-all duration-300 ease-in-out"
+      {...attributes}
+      {...listeners}
+      ref={setNodeRef}
     >
       <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-pink-500 to-violet-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"></div>
       <div className="relative flex items-center gap-3">
@@ -23,6 +35,6 @@ export const Links = ({ link }: LinksProps) => {
         </p>
         <div className="w-8 h-8" /> {/* Spacer to center the text */}
       </div>
-    </a>
+    </li>
   );
 };
