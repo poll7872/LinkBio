@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import { Toaster } from 'sonner'
+import { Logo } from '../components/Logo'
 
 export const AuthLayout = () => {
   return (
@@ -9,9 +10,7 @@ export const AuthLayout = () => {
 
       {/* Content Card */}
       <div className='relative z-10 w-full max-w-md p-8 space-y-6 bg-white/70 backdrop-blur-xl rounded-2xl shadow-2xl'>
-        <div className='flex justify-center'>
-          <img src='/logo.svg' alt='Logotipo linkbio' className='w-64' />
-        </div>
+        <Logo />
 
         <div>
           <Outlet />
