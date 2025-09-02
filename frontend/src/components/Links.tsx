@@ -19,7 +19,7 @@ export const Links = ({ link }: LinksProps) => {
   return (
     <li
       style={style}
-      className="relative group block w-full p-4 bg-white rounded-lg border border-slate-200 hover:border-transparent hover:shadow-lg transition-all duration-300 ease-in-out"
+      className="relative cursor-pointer group block w-full p-4 bg-white rounded-lg border border-slate-200 hover:border-transparent hover:shadow-lg transition-colors duration-300 ease-in-out"
       {...attributes}
       {...listeners}
       ref={setNodeRef}
