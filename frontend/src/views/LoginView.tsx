@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ErrorMessage } from '../components/ErrorMessage'
 import type { LoginForm } from '../types'
 import api from '../config/axios'
@@ -8,6 +8,8 @@ import { isAxiosError } from 'axios'
 import { GradientButton } from "../components/GradientButton";
 
 export const LoginView = () => {
+
+  const navigate = useNavigate()
 
   const initialValues: LoginForm = {
     email: '',
@@ -20,6 +22,7 @@ export const LoginView = () => {
     try {
       const { data } = await api.post('/auth/login', formData)
       localStorage.setItem('AUTH_TOKEN', data.token)
+      navigate('/admin')
     } catch (error) {
       if (isAxiosError(error) && error.response) {
         toast.error(error.response?.data.error)

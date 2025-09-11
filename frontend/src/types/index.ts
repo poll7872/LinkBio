@@ -28,4 +28,8 @@ export type SocialNetwork = {
   enabled: boolean
 }
 
-export type LinkTree = Pick<SocialNetwork, 'name' | 'url' | 'enabled'> 
+export type LinkTree = Pick<SocialNetwork, 'name' | 'url' | 'enabled'>
+
+export type SearchResponse = {
+  message: string
+}

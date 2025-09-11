@@ -5,7 +5,7 @@ export const HomeNavigation = () => {
     <div className="flex items-center gap-4">
       <Link
         to="/auth/login"
-        className="px-2 py-2 text-base font-medium text-violet-600 border-2 border-violet-500 rounded-md hover:bg-violet-500 hover:text-white transition-colors duration-300 cursor-pointer"
+        className="px-2 py-2 text-base font-medium text-white border-2 border-violet-500 rounded-md hover:bg-violet-500 transition-colors duration-300 cursor-pointer"
       >
         Iniciar Sesión
       </Link>
